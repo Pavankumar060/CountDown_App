@@ -8,23 +8,14 @@ const Countdown =()=>{
     const [milliseconds,setMilliseconds]=useState(0);
     const [isRunning,setIsRunning]=useState(null);
 
-
     const days_00 = localStorage.getItem("Days");
     const hours_00 = localStorage.getItem("Hours");
     const minutes_00 = localStorage.getItem("Minutes");
     const seconds_00 = localStorage.getItem("Seconds");
     
-    console.log(days_00, hours_00 , minutes_00 , seconds_00);
-
-
+console.log(days_00, hours_00 , minutes_00 , seconds_00);
 
     useEffect(()=>{
-        // if (days_00 !== 0 ||hours_00 !== 0 ||minutes_00 !== 0||seconds_00 !== 0){
-        //     seconds=seconds_00;
-        //     minutes=minutes_00;
-        //     hours=hours_00;
-        //     days=days_00;
-        // }
         let interval;
         if(isRunning){
             interval = setInterval(()=>{
