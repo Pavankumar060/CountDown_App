@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #E1FCFA;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.heading{
+  display: flex;
+  background-color:#465BF6;
+  padding: 10px;
+  border-radius: 25px;
+
+}
+
+.main{
+  border: solid 2px #FFF865;
+  padding: 5px;
+  position: relative;
+  top: -25px;
+}
+.timer_img{
+  width: 40px;
+}
+
+.content th{
+  font-size: 500%;
+  color:#FE7EEA ;
+}
+
+.content td{
+  font-size: 200%;
+  color: blanchedalmond;
+}
+
+.buttons button{
+  margin-right: 40px;
+  padding: 10px 15px;
+  font-size: 150%;
+}
