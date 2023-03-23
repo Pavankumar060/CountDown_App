@@ -1,24 +1,35 @@
 import React,{useState,useEffect} from "react";
 const Countdown =()=>{
 
-    const [days,setDays] =  useState(20);
-    const [hours,setHours] = useState(0);
-    const [minutes,setMinutes] =useState(0) ;
-    const [seconds,setSeconds] =useState(0) ;
-    const [milliseconds,setMilliseconds]=useState(0);
-    const [isRunning,setIsRunning]=useState(null);
+    const [isRunning,setIsRunning]=useState(false);
+
+    useEffect(()=>{
+        const running_00 = window.localStorage.getItem("Running");
+        if (running_00!==null)setIsRunning(JSON.parse(running_00));
+    },[])
 
     const days_00 = localStorage.getItem("Days");
     const hours_00 = localStorage.getItem("Hours");
     const minutes_00 = localStorage.getItem("Minutes");
     const seconds_00 = localStorage.getItem("Seconds");
     
-console.log(days_00, hours_00 , minutes_00 , seconds_00);
+    const days_0 = days_00? days_00:'10';
+    const hours_0 = hours_00? hours_00:'0';
+    const minutes_0 = minutes_00? minutes_00:'0';
+    const seconds_0 = seconds_00? seconds_00:'0';;
+    
+    
+    const [days,setDays] =  useState(days_0);
+    const [hours,setHours] = useState(hours_0);
+    const [minutes,setMinutes] =useState(minutes_0) ;
+    const [seconds,setSeconds] =useState(seconds_0) ;
+    const [milliseconds,setMilliseconds]=useState(0);
+    
 
     useEffect(()=>{
         let interval;
-        if(isRunning){
-            interval = setInterval(()=>{
+       
+           { isRunning &&( interval = setInterval(()=>{
                 if(milliseconds > 0){
                     setMilliseconds((milliseconds)=>milliseconds - 1); 
                 }else if(seconds >0){
@@ -42,22 +53,18 @@ console.log(days_00, hours_00 , minutes_00 , seconds_00);
                 }
                 
             },10)
+           )
         }
         return()=> clearInterval(interval);
     },[milliseconds, seconds,minutes,hours,days,isRunning])
 
-    useEffect(()=>{
-        window.localStorage.setItem("Days",days);
-        window.localStorage.setItem("Hours",hours);
-        window.localStorage.setItem("Minutes",minutes);
-        window.localStorage.setItem("Seconds",seconds);
-    },[days,hours,minutes,seconds])
-
-    // //button functions
+    
+    //button functions
 
     // //start
     const handleStart=()=>{
         setIsRunning(true);
+        
     }
     //pause
     const handlePause=()=>{
@@ -66,14 +73,23 @@ console.log(days_00, hours_00 , minutes_00 , seconds_00);
 
     //stop
     const handleStop=()=>{
-    setIsRunning(false);
-    setDays(24);
+    setIsRunning(null);
+    setDays(10);
     setHours(0);
     setMinutes(0);
     setSeconds(0);
     setMilliseconds(0);
-    localStorage.clear();
+    window.localStorage.clear();
+    
 }
+useEffect(()=>{
+    window.localStorage.setItem("Days",days);
+    window.localStorage.setItem("Hours",hours);
+    window.localStorage.setItem("Minutes",minutes);
+    window.localStorage.setItem("Seconds",seconds);
+    window.localStorage.setItem("Running",JSON.stringify(isRunning));        
+},[days,hours,minutes,seconds,isRunning])
+
 
 
 return(
